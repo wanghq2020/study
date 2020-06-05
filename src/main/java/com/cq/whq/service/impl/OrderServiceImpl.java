@@ -70,6 +70,9 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public Response changeOrderQuantity(Long orderDetialId,BigDecimal orderQuantity) {
+        if(orderQuantity.compareTo(new BigDecimal(0))<1){
+            return Response.error(ResponseEnums.Request_Param_Invalid);
+        }
         //查询订单详情信息
         OrderDetailModel order=orderDetailDao.queryByOrderId(orderDetialId);
         //查询所有订单当前版本发货信息
