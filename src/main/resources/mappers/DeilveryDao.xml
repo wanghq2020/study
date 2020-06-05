@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cq.whq.dao.DeilveryDao">
+    <select id="queryByOrderId" resultType="com.cq.whq.model.DeilveryModel">
+        SELECT
+            id id,
+            order_id orderId,
+            order_detail_id orderDetailId,
+            deilvery_quantity deilveryQuantity,
+            is_deilvery isDeilvery,
+            version version,
+            create_time createTime,
+            update_time updateTime
+        FROM
+	        deilvery where order_detail_id=#{orderDetailId,jdbcType=BIGINT} and version=#{version,jdbcType=INTEGER}
+    </select>
+    <insert id="insert" parameterType="com.cq.whq.model.DeilveryModel">
+        insert into deilvery
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id !=null">
+                id,
+            </if>
+            <if test="orderId !=null">
+                order_id,
+            </if>
+            <if test="orderDetailId !=null">
+                order_detail_id,
+            </if>
+            <if test="deilveryQuantity !=null">
+                deilvery_quantity,
+            </if>
+            <if test="isDeilvery !=null">
+                is_deilvery,
+            </if>
+            <if test="version !=null">
+                version,
+            </if>
+            <if test="createTime !=null">
+                create_time,
+            </if>
+            <if test="updateTime !=null">
+                update_time,
+            </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id !=null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="orderId !=null">
+                #{orderId,jdbcType=BIGINT},
+            </if>
+            <if test="orderDetailId !=null">
+                #{orderDetailId,jdbcType=BIGINT},
+            </if>
+            <if test="deilveryQuantity !=null">
+                #{deilveryQuantity,jdbcType=DECIMAL},
+            </if>
+            <if test="isDeilvery !=null">
+                #{isDeilvery,jdbcType=INTEGER},
+            </if>
+            <if test="version !=null">
+                #{version,jdbcType=INTEGER},
+            </if>
+            <if test="createTime !=null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime !=null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <select id="queryById" resultType="com.cq.whq.model.DeilveryModel">
+        SELECT
+            id id,
+            order_id orderId,
+            order_detail_id orderDetailId,
+            deilvery_quantity deilveryQuantity,
+            is_deilvery isDeilvery,
+            version version,
+            create_time createTime,
+            update_time updateTime
+        FROM
+	        deilvery where id=#{id,jdbcType=BIGINT}
+
+    </select>
+    <update id="updateVersion" parameterType="com.cq.whq.model.DeilveryModel">
+        update deilvery
+        <set>
+            version=#{version,jdbcType=INTEGER}
+        </set>
+        where id=#{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateQuantity" parameterType="com.cq.whq.model.DeilveryModel">
+        update deilvery
+        <set>
+            deilvery_quantity=#{deilveryQuantity,jdbcType=DECIMAL}
+        </set>
+        where id=#{id,jdbcType=BIGINT}
+    </update>
+</mapper>
